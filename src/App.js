@@ -6,13 +6,16 @@ import {Nav,NavDropdown,Form,FormControl,Alert,Col,Row,Container,Jumbotron,Navba
 import Board from './Board'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+import UserList from './Components/UserList';
+import UserInput from './Components/UserInput';
 const table = [1, 2, 3, 4]
 
 class App extends Component {
   render() {
-    return (
-      <Board/>)
+    return (<div>
+      <Board/>
+      <UserList/>
+      <UserInput/></div>)
     }
 }
 
