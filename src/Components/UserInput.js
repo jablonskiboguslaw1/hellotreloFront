@@ -1,5 +1,7 @@
 import { Component } from 'react'
 import axios from 'axios'
+import {Form,Button} from 'react-bootstrap'
+
 
 export default class UserInput extends Component {
 
@@ -9,44 +11,64 @@ export default class UserInput extends Component {
         password: 'ice'
     };
 
-    handleChange = event => {
-        this.setState({
-            name: event.target.value,
-            email: event.target.email,
-            password: event.target.password
-        })
+createUser =(e) => {
+    const user = {
+        name: e.target.name.value,
+        email: e.target.email.value,
+         password: e.target.password.value,
 
     }
+    return user
+
+
+}
+   
     handleSubmit = e => {
+
         e.preventDefault();
+        console.log(e)
+        
+
+
         const user = {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password
 
         }
-        axios.post(`http://localhost:8080/user`, { user })
+        axios.post(`http://localhost:8080/user`, this.createUser(e))
             .then(res => {
                 console.log(res);
                 console.log(res.data);
             })
+
+            window.location.reload()
     };
 
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>Name:
-                    <input type='text' name='name' onChange={this.handleChange}></input>
-                </label>
-                <label>Password
-                    <input type='password' name='npassword' onChange={this.handleChange}></input>
-                </label>
-                <label>Email
-                    <input type='text' name='email' onChange={this.handleChange}></input>
-                </label>
-                <button type='submit'>add</button>
-            </form>
+            
+                
+                <Form onSubmit={this.handleSubmit}> Input user
+                    <Form.Group controlId='name'>
+                        <Form.Label> Name: </Form.Label>
+                        <Form.Control defaultValue='name'>
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId='email'>
+                        <Form.Label> Name: </Form.Label>
+                        <Form.Control defaultValue={this.state.email}>
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId='password'>
+                        <Form.Label> Name: </Form.Label>
+                        <Form.Control  type = 'password' defaultValue={this.state.password}>
+                        </Form.Control>
+                    </Form.Group>
+                    <Button type='submit'> Register</Button>
+                </Form>
+            
         )
     }
 }
